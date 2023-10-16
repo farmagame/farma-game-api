@@ -1,0 +1,393 @@
+{"questions": [
+    {
+      "ask": "Você percebeu que tem muitos medicamentos vencidos na sua casa e precisa descartá-los, onde comumente você faz esse descarte?",
+      "options": [
+        {
+          "label": "Jogo no lixo, na pia, vaso sanitário",
+          "check": false
+        },
+        {
+          "label": "Encaminho para o posto de coleta, farmácia oudrogaria que disponibiliza esse serviço",
+          "check": false
+        },
+        {
+          "label": "Não descarto e consumo todos o mais rápido possível",
+          "check": false
+        },
+        {
+          "label": "Não preciso fazer o descarte",
+          "check": false
+        }
+      ],
+      "hint": "Onde pagamos por eles",
+      "status": true,
+      "answer": "B",
+      "question_category": "Medicamentos",
+      "messageSuccess": "Parabéns você impediu a intoxicação e morte de vários seres vivos! além da contaminação dos solos e da água.",
+      "messageError": "Uma pessoa que trabalha no lixão acabou se intoxicando devido a sua ação, indo para o hospital em estado grave, além disso ocasionou a contaminação do solo e água.",
+      "question_user": {
+        "given_name": "Gabriel",
+        "family_name": "Cruz",
+        "nickname": "gabitwo81",
+        "name": "Gabriel Cruz",
+        "picture": "https://lh3.googleusercontent.com/a/ACg8ocIGx-z_DvVZIeMEjJHwtFTIf2C6bKmMK4As2C5m-MxDPw=s96-c",
+        "locale": "pt-BR",
+        "updated_at": "2023-09-22T15:06:03.011Z",
+        "email": "gabitwo81@gmail.com",
+        "email_verified": true,
+        "sub": "google-oauth2|104137404629757907165",
+        "sid": "P-qNf088eGfNfwlMcylpb-4KvJ1ZDY6X"
+      },
+      "id": 1
+    },
+    {
+      "ask": "Você acabou de comprar uma caixa de medicamentos e deve guardá-lo,qual local você escolhe?",
+      "options": [
+        {
+          "label": "Guardo no banheiro, no carro, na cozinha, perto de parede, perto de janela, em cima da geladeira fora da caixa original, ao alcance de crianças e animais.",
+          "check": false
+        },
+        {
+          "label": "Guardo dentro de um saco, fecho bem e em seguida ponho na geladeira ",
+          "check": false
+        },
+        {
+          "label": "Na área de serviço junto dos produtos de limpeza",
+          "check": false
+        },
+        {
+          "label": "Guardo longe de crianças e animais, longe da umidade, do calor, longe de alimentos, produtos químicos e de limpeza.",
+          "check": false
+        }
+      ],
+      "hint": "Crianças não podem ter acesso",
+      "status": true,
+      "answer": "D",
+      "question_category": "Medicamentos",
+      "messageSuccess": "Parabéns, seu medicamento foi conservado corretamente e mantido fora do alcance de animais e crianças.",
+      "messageError": "O seu medicamento pode ter perdido a estabilidade e, assim,interferindo no efeito. Medicamentos fora da caixa original podem ser trocados além de dificultar a visualização da sua validade. Crianças e animais podem sofrer intoxicações pelo mal uso.",
+      "question_user": {
+        "given_name": "Gabriel",
+        "family_name": "Cruz",
+        "nickname": "gabitwo81",
+        "name": "Gabriel Cruz",
+        "picture": "https://lh3.googleusercontent.com/a/ACg8ocIGx-z_DvVZIeMEjJHwtFTIf2C6bKmMK4As2C5m-MxDPw=s96-c",
+        "locale": "pt-BR",
+        "updated_at": "2023-09-22T15:06:03.011Z",
+        "email": "gabitwo81@gmail.com",
+        "email_verified": true,
+        "sub": "google-oauth2|104137404629757907165",
+        "sid": "P-qNf088eGfNfwlMcylpb-4KvJ1ZDY6X"
+      },
+      "id": 2
+    },
+    {
+      "ask": "Durante as férias, você adoeceu e os sintomas estavam persistindo por mais de uma semana, indo ao médico foi receitado um tratamento medicamentoso, porém ao usar o medicamento por uns dias percebeu que os sintomas desapareceram antes de terminar o tratamento. O que você faz?",
+      "options": [
+        {
+          "label": "Paro de tomar o medicamento e vou logo curtir as minhas férias .",
+          "check": false
+        },
+        {
+          "label": "Diminuo a quantidade até a conclusão do dia",
+          "check": false
+        },
+        {
+          "label": "Tomo todo o restante de vez para reforçar o efeito",
+          "check": false
+        },
+        {
+          "label": "Continuo tomando o medicamento e seguindo o tratamento de acordo com as orientações médicas.",
+          "check": false
+        }
+      ],
+      "hint": "As orientações de quem entende, permanece.",
+      "status": true,
+      "answer": "D",
+      "question_category": "Medicamentos",
+      "messageSuccess": "Você se curou de maneira eficaz e agora pode curtir suas férias tranquilamente.",
+      "messageError": "Infelizmente sua doença não foi curada de maneira eficaz e assim, acabou sendo internado no hospital, perdendo todo restante das suas férias.",
+      "question_user": {
+        "given_name": "Gabriel",
+        "family_name": "Cruz",
+        "nickname": "gabitwo81",
+        "name": "Gabriel Cruz",
+        "picture": "https://lh3.googleusercontent.com/a/ACg8ocIGx-z_DvVZIeMEjJHwtFTIf2C6bKmMK4As2C5m-MxDPw=s96-c",
+        "locale": "pt-BR",
+        "updated_at": "2023-09-22T15:06:03.011Z",
+        "email": "gabitwo81@gmail.com",
+        "email_verified": true,
+        "sub": "google-oauth2|104137404629757907165",
+        "sid": "P-qNf088eGfNfwlMcylpb-4KvJ1ZDY6X"
+      },
+      "id": 3
+    },
+    {
+      "ask": "Você adoeceu e um amigo seu disse que teve os mesmos sintomas que você e lhe deu o medicamento que ele tomava. O que você faz?",
+      "options": [
+        {
+          "label": "Tomo esse medicamento, afinal foram os mesmos sintomas.",
+          "check": false
+        },
+        {
+          "label": "Não tomo esse medicamento, pode ser que eu tenha outra doença ou alergia",
+          "check": false
+        },
+        {
+          "label": "Busco na internet orientações para certificar que posso tomar",
+          "check": false
+        },
+        {
+          "label": "Busco um similar pois acredito que nem sempre os sintomas são iguais",
+          "check": false
+        }
+      ],
+      "hint": "Cada pessoa é um ser único.",
+      "status": true,
+      "answer": "B",
+      "question_category": "Saúde e bem estar",
+      "messageSuccess": "Parabéns, você possuía outra doença que tinha os mesmos sintomas que a doença do seu amigo. Sendo assim, o medicamento era outro e você pode ser tratado corretamente.",
+      "messageError": "Por ter tomado o medicamento sem saber qual era a doença, a sua saúde ficou ainda mais prejudicada.",
+      "question_user": {
+        "given_name": "Gabriel",
+        "family_name": "Cruz",
+        "nickname": "gabitwo81",
+        "name": "Gabriel Cruz",
+        "picture": "https://lh3.googleusercontent.com/a/ACg8ocIGx-z_DvVZIeMEjJHwtFTIf2C6bKmMK4As2C5m-MxDPw=s96-c",
+        "locale": "pt-BR",
+        "updated_at": "2023-09-22T15:06:03.011Z",
+        "email": "gabitwo81@gmail.com",
+        "email_verified": true,
+        "sub": "google-oauth2|104137404629757907165",
+        "sid": "P-qNf088eGfNfwlMcylpb-4KvJ1ZDY6X"
+      },
+      "id": 4
+    },
+    {
+      "ask": "Ao comprar o medicamento que você já havia tomado várias vezes, você percebeu que o mesmo possuía um odor e um aspecto diferente do que você lembrava. O que você faz?",
+      "options": [
+        {
+          "label": "Jogo fora e compro outro.",
+          "check": false
+        },
+        {
+          "label": "Faço uma ligação para o Centro de Informação de Medicamentos (CIM), ou volto para a farmácia onde comprei o medicamento e converso com um farmacêutico.",
+          "check": false
+        },
+        {
+          "label": "Ponho na geladeira e após 30s certifico que passou.",
+          "check": false
+        },
+        {
+          "label": "Continuo tomando junto com outros tipos de alimento.",
+          "check": false
+        }
+      ],
+      "hint": "Um odor e um aspecto diferente são incomuns e precisam ser avaliados.",
+      "status": true,
+      "answer": "B",
+      "question_category": "Medicamentos",
+      "messageSuccess": "Parabéns! Você evitou uma intoxicação.",
+      "messageError": "É necessário que se faça uma ligação para o Centro de Informação de Medicamentos (CIM) ou volte para a farmácia que foi comprado o medicamento para que seja informado sobre o estado do medicamento.",
+      "question_user": {
+        "given_name": "Gabriel",
+        "family_name": "Cruz",
+        "nickname": "gabitwo81",
+        "name": "Gabriel Cruz",
+        "picture": "https://lh3.googleusercontent.com/a/ACg8ocIGx-z_DvVZIeMEjJHwtFTIf2C6bKmMK4As2C5m-MxDPw=s96-c",
+        "locale": "pt-BR",
+        "updated_at": "2023-09-22T15:06:03.011Z",
+        "email": "gabitwo81@gmail.com",
+        "email_verified": true,
+        "sub": "google-oauth2|104137404629757907165",
+        "sid": "P-qNf088eGfNfwlMcylpb-4KvJ1ZDY6X"
+      },
+      "id": 5
+    },
+    {
+      "ask": "Você está com febre há 03 dias, dores no corpo e nos olhos, náusea e vômitos; seu vizinho diz que viu na internet que esses sintomas são de dengue e que você pode tomar dipirona pois o paracetamol pode destruir o seu fígado . O que você deve fazer?",
+      "options": [
+        {
+          "label": "Compra a dipirona e toma segundo a indicação do site, ou da bula.",
+          "check": false
+        },
+        {
+          "label": "Vai ao posto ou centro de saúde, ou pede ajuda a um profissional especializado para te auxiliar sobre essa pesquisa que seu vizinho fez.",
+          "check": false
+        },
+        {
+          "label": "Faço um chá de boldo para tomar.",
+          "check": false
+        },
+        {
+          "label": "Vejo quem teve sintomas similares e tomo o mesmo medicamento.",
+          "check": false
+        }
+      ],
+      "hint": "Vejo quem teve sintomas similares e tomo o mesmo medicamento.",
+      "status": true,
+      "answer": "B",
+      "question_category": "Saúde e bem estar",
+      "messageSuccess": "Você foi tratado da maneira correta.",
+      "messageError": "É necessário que o paciente vá um serviço de saúde para que diagnostique qual doença ele está e ali serão feitas as orientações corretas e necessárias.",
+      "question_user": {
+        "given_name": "Gabriel",
+        "family_name": "Cruz",
+        "nickname": "gabitwo81",
+        "name": "Gabriel Cruz",
+        "picture": "https://lh3.googleusercontent.com/a/ACg8ocIGx-z_DvVZIeMEjJHwtFTIf2C6bKmMK4As2C5m-MxDPw=s96-c",
+        "locale": "pt-BR",
+        "updated_at": "2023-09-22T15:06:03.011Z",
+        "email": "gabitwo81@gmail.com",
+        "email_verified": true,
+        "sub": "google-oauth2|104137404629757907165",
+        "sid": "P-qNf088eGfNfwlMcylpb-4KvJ1ZDY6X"
+      },
+      "id": 6
+    },
+    {
+      "ask": "Alguns medicamentos, mesmo comprimidos, têm o gosto ruim. Você percebe que na geladeira tem leite, suco e refrigerante, que diminuiria o gosto ruim. Como você procede?",
+      "options": [
+        {
+          "label": "Eu tomo com suco ou leite",
+          "check": false
+        },
+        {
+          "label": "Eu aguento e tomo com água.",
+          "check": false
+        },
+        {
+          "label": "Não tomo e volto na farmácia para trocar por um de gosto melhor.",
+          "check": false
+        },
+        {
+          "label": "Amasso o(s) comprimido(s) e ponho junto com alimentos sólidos para conseguir injeri-los.",
+          "check": false
+        }
+      ],
+      "hint": "Igualmente aos demais, independente do gosto",
+      "status": true,
+      "answer": "B",
+      "question_category": "Medicamentos",
+      "messageSuccess": "Seu tratamento está sendo realizado de maneira eficiente, parabéns!",
+      "messageError": "Certos medicamentos não podem ser ingeridos com esses líquidos pois podem acelerar as degradação do medicamento ou interferir na absorção.",
+      "question_user": {
+        "given_name": "Gabriel",
+        "family_name": "Cruz",
+        "nickname": "gabitwo81",
+        "name": "Gabriel Cruz",
+        "picture": "https://lh3.googleusercontent.com/a/ACg8ocIGx-z_DvVZIeMEjJHwtFTIf2C6bKmMK4As2C5m-MxDPw=s96-c",
+        "locale": "pt-BR",
+        "updated_at": "2023-09-22T15:06:03.011Z",
+        "email": "gabitwo81@gmail.com",
+        "email_verified": true,
+        "sub": "google-oauth2|104137404629757907165",
+        "sid": "P-qNf088eGfNfwlMcylpb-4KvJ1ZDY6X"
+      },
+      "id": 7
+    },
+    {
+      "ask": "Você está realizando um tratamento com antibiótico e você vai a festa de aniversário do seu amigo. Na festa, o aniversariante pede para que te sirva uma bebida com álcool ( cerveja, vinho, coquetel). O que você faz?",
+      "options": [
+        {
+          "label": "Não tomo o medicamento no dia, bebo a bebida com álcool.",
+          "check": false
+        },
+        {
+          "label": "Não tem problema, posso tomar os dois.",
+          "check": false
+        },
+        {
+          "label": "Tomo o medicamento antes, espero 5min e posso consumir as bebidas na festa.",
+          "check": false
+        },
+        {
+          "label": "Não tomo e continuo meu tratamento.",
+          "check": false
+        }
+      ],
+      "hint": "Respeitar o tratamento",
+      "status": true,
+      "answer": "D",
+      "question_category": "Saúde e bem estar",
+      "messageSuccess": "Parabéns você continuou o seu tratamento e está saudável outra vez.",
+      "messageError": "Infelizmente teve uma alteração na ecácia do medicamento, podendo se tornar tóxico, ou até mesmo, a bactéria pode tornar a se multiplicar e criar resistência ao medicamento .",
+      "question_user": {
+        "given_name": "Gabriel",
+        "family_name": "Cruz",
+        "nickname": "gabitwo81",
+        "name": "Gabriel Cruz",
+        "picture": "https://lh3.googleusercontent.com/a/ACg8ocIGx-z_DvVZIeMEjJHwtFTIf2C6bKmMK4As2C5m-MxDPw=s96-c",
+        "locale": "pt-BR",
+        "updated_at": "2023-09-22T15:06:03.011Z",
+        "email": "gabitwo81@gmail.com",
+        "email_verified": true,
+        "sub": "google-oauth2|104137404629757907165",
+        "sid": "P-qNf088eGfNfwlMcylpb-4KvJ1ZDY6X"
+      },
+      "id": 8
+    },
+    {
+      "ask": "Você vai para a casa da sua vó e do nada sente uma dor de barriga, ela lhe oferece um chá dizendo que não faz mal, afinal, plantas são inofensivas. Essa afirmação é mesmo verdade, ou seja, os chás caseiros podem ser usados sem riscos por qualquer pessoa?",
+      "options": [
+        {
+          "label": "Não, plantas também são tóxicas.",
+          "check": false
+        },
+        {
+          "label": "Sim, eu sempre tomei e nunca senti nada.",
+          "check": false
+        },
+        {
+          "label": "Sim, e sempre é a melhor opção para tudo.",
+          "check": false
+        },
+        {
+          "label": "Sim. Apenas se o gosto for agradável.",
+          "check": false
+        }
+      ],
+      "hint": "Plantas medicinais, se utilizadas de forma incorreta, também podem ser prejudiciais à saúde.",
+      "status": true,
+      "answer": "A",
+      "question_category": "Saúde e bem estar",
+      "messageSuccess": "Parabéns! Você cuida direito da sua saúde.",
+      "messageError": "Chás, inalação, compressa ou banhos de plantas medicinais, se utilizadas de forma incorreta, também podem ser prejudiciais à saúde e ao longo prazo, podem causar doenças.",
+      "question_user": {
+        "given_name": "Gabriel",
+        "family_name": "Cruz",
+        "nickname": "gabitwo81",
+        "name": "Gabriel Cruz",
+        "picture": "https://lh3.googleusercontent.com/a/ACg8ocIGx-z_DvVZIeMEjJHwtFTIf2C6bKmMK4As2C5m-MxDPw=s96-c",
+        "locale": "pt-BR",
+        "updated_at": "2023-09-22T15:06:03.011Z",
+        "email": "gabitwo81@gmail.com",
+        "email_verified": true,
+        "sub": "google-oauth2|104137404629757907165",
+        "sid": "P-qNf088eGfNfwlMcylpb-4KvJ1ZDY6X"
+      },
+      "id": 9
+    }
+],
+"categories": [
+    {
+      "name": "Medicamentos",
+      "id": 1
+    },
+    {
+      "name": "Saúde e bem estar",
+      "id": 2
+    }
+  ],
+    "users": [
+        {
+            "id": "2",
+            "name": "Jane Smith",
+            "email": "jane@example.com",
+            "password": "hashedpassword456",
+            "permissions": [
+              3
+            ]
+          }
+        ]
+}
