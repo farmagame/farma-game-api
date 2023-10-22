@@ -1,5 +1,6 @@
 import express, { Request, Response } from 'express';
 import { PrismaClient } from '@prisma/client';
+import { Question } from '../../models/question';
 
 
 const router = express.Router();
@@ -7,7 +8,7 @@ const prisma = new PrismaClient();
 
 // Rota para obter uma questão específica
 router.get('/questions/:id', async (req, res) => {
-  const questionId = parseInt(req.params.id);
+  const questionId = req.params.id;
   try {
     const question = await prisma.question.findUnique({
       where: {
@@ -49,7 +50,7 @@ router.get('/questions/category/:category', async (req, res) => {
 
 // Rota para obter questões por usuário 
 router.get('/questions/user/:id', async (req, res) => {
-  const newuserQuestion = parseInt(req.params.id);
+  const newuserQuestion = req.params.id;
   try {
     const question = await prisma.question.findMany({
       where: { 
@@ -82,11 +83,11 @@ router.get('/questions', async (req, res) => {
 
 // rota para criar questões
 router.post('/questions', async (req, res) => {
-  const { title, options, hint, status, answer, category, id } = req.body;
+  const { ask, options, hint, status, answer, id, question_category, messageError, messageSuccess }:Question = req.body;
   try {
     const newQuestion = await prisma.question.create({
       data: {
-        title,       
+        ask,       
             options:{
               createMany: {
                 data: options.map((option: any) => ({
@@ -97,10 +98,10 @@ router.post('/questions', async (req, res) => {
           },
                 
         hint,         
-        status,       
+        status, 
         answer,         
         category: {
-          connect: { category }
+          connect: { category: question_category }
         },
         user: {
           connect: { id }
@@ -120,14 +121,14 @@ router.post('/questions', async (req, res) => {
 
 // Rota para editar questões
 router.put('/questions/:id', async (req, res) => {
-  const  newid  = parseInt(req.params.id);
-  const { title, options, hint, status, answer, categoryId, userId } = req.body;
+  const  newid  = req.params.id;
+  const { ask, options, hint, status, answer, categoryId, userId } = req.body;
 
   try {
     const updatedQuestion = await prisma.question.update({
       where: { id: newid },
       data: {
-        title,       
+        ask,       
             options:{
               createMany: {
                 data: options.map((option: any) => ({
@@ -158,7 +159,7 @@ router.delete('/questions/:id', async (req, res) => {
   const { id } = req.params;
   try {
     await prisma.question.delete({
-      where: { id: Number(id) },
+      where: { id: id },
     });
     res.json({ message: 'Questão deletada com suscesso' });
   } catch (error) {

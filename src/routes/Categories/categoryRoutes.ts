@@ -7,7 +7,7 @@ const prisma = new PrismaClient();
 
 // Rota para obter uma questão específica
 router.get('/category/:id', async (req, res) => {
-  const categoryId = parseInt(req.params.id);
+  const categoryId = req.params.id;
   try {
     const category = await prisma.category.findUnique({
       where: {
@@ -59,7 +59,7 @@ router.put('/category/:id', async (req, res) => {
 
   try {
     const updatedQuestion = await prisma.category.update({
-      where: { id: Number(id) },
+      where: { id: id },
       data: {
         category,       
       }
@@ -77,7 +77,7 @@ router.delete('/category/:id', async (req, res) => {
   const { id } = req.params;
   try {
     await prisma.category.delete({
-      where: { id: Number(id) },
+      where: { id: id },
     });
     res.json({ message: 'Categoria deletada com suscesso' });
   } catch (error) {

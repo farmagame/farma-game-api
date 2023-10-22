@@ -25,7 +25,8 @@ model Reports {
   city     String
   state    String
   typeGame String
-  QuestionsReport Question[]
+  questionId   String
+  reports    Question   @relation(fields: [questionId], references: [id])
 }
 
 model Category {
@@ -36,17 +37,16 @@ model Category {
 
 model Question {
   id         String     @id @default(uuid())
-  title      String
+  ask        String
   hint       String
   status     Status    @default(ACTIVE)
   answer     String
   categoryId String
   userId     String
-  reportId   String
   options    Options[]
+  QuestionsReport Reports[]
   category   Category  @relation(fields: [categoryId], references: [id])
   user       User      @relation(fields: [userId], references: [id])
-  reports    Reports   @relation(fields: [reportId], references: [id])
 }
 
 model Options {

@@ -1,3 +1,5 @@
+import { Status } from "@prisma/client";
+import { OutputCategory } from "./category";
 import { OutputUser } from "./user";
 
 export interface Question {
@@ -5,7 +7,7 @@ export interface Question {
     ask: string,
     options: Option[],
     hint: string,
-    status: boolean,
+    status: Status,
     answer: string,
     messageSuccess: string,
     messageError: string,
