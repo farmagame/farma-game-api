@@ -8,45 +8,61 @@ datasource db {
 }
 
 model User {
-  id        Int        @id @default(autoincrement())
+  id        String     @id @default(uuid())
   name      String
   email     String     @unique
   password  String
-  role      Role       @default(USER)
+  permissions  Role       @default(VIEWER)
   createdAt DateTime   @default(now())
   Question  Question[]
 }
 
+model Reports {
+  id       String     @id @default(uuid())
+  idUser   String
+  age      Int
+  sex      String
+  city     String
+  state    String
+  typeGame String
+  QuestionsReport Question[]
+}
+
 model Category {
-  id       Int        @id @default(autoincrement())
+  id             String       @id @default(uuid())
   category String     @unique
   question Question[]
 }
 
 model Question {
-  id         Int       @id @default(autoincrement())
+  id         String     @id @default(uuid())
   title      String
   hint       String
   status     Status    @default(ACTIVE)
   answer     String
-  categoryId Int
-  userId     Int
+  categoryId String
+  userId     String
+  reportId   String
   options    Options[]
   category   Category  @relation(fields: [categoryId], references: [id])
   user       User      @relation(fields: [userId], references: [id])
+  reports    Reports   @relation(fields: [reportId], references: [id])
 }
 
 model Options {
-  id         Int      @id @default(autoincrement())
+  id         String   @id @default(uuid())
   label      String
   check      Boolean  @default(true)
-  questionId Int
+  questionId String
   Question   Question @relation(fields: [questionId], references: [id])
 }
 
 enum Role {
-  USER
   ADMIN
+  GENERAL
+  REGISTRAR
+  VIEWER
+  REPORT
 }
 
 enum Status {

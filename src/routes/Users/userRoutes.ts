@@ -1,3 +1,4 @@
+import { InputUser } from './../../models/user';
 import express, { Request, Response } from 'express';
 import { PrismaClient } from '@prisma/client';
 import bcrypt from 'bcrypt';
@@ -11,7 +12,7 @@ const prisma = new PrismaClient();
 
 // Rota para obter informações de usuário específico
 router.get('/users/:id', async (req, res) => {
-    const userId = parseInt(req.params.id);
+    const userId = req.params.id;
     try {
       const user = await prisma.user.findUnique({
         where: {
@@ -43,7 +44,7 @@ router.get('/users', async (req, res) => {
 // Rota de registro de usuário
 router.post('/register', async (req: Request, res: Response) => {
   try {
-    const { name, email, password, role } = req.body;
+    const { name, email, password, permissions }:InputUser = req.body;
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -52,7 +53,7 @@ router.post('/register', async (req: Request, res: Response) => {
         name, 
         email, 
         password: hashedPassword, 
-        role,
+        permissions,
       },
     });
 
@@ -100,17 +101,17 @@ router.post('/login', async (req: Request, res: Response) => {
 // Rota para atualizar usuário
 router.put('/users/:id', async (req, res) => {
     const { id } = req.params;
-    const { name, email, password, role } = req.body;
+    const { name, email, password, permissions } = req.body;
     const hashedPassword = await bcrypt.hash(password, 10);
   
     try {
       const updatedUser = await prisma.user.update({
-        where: { id: Number(id) },
+        where: { id: id },
         data: { 
           name, 
           email, 
           password: hashedPassword, 
-          role
+          permissions
         },
       });
       res.json(updatedUser);
@@ -125,7 +126,7 @@ router.delete('/users/:id', async (req, res) => {
     const { id } = req.params;
     try {
       await prisma.user.delete({
-        where: { id: Number(id) },
+        where: { id: id },
       });
       res.json({ message: 'Usuário deletado com suscesso' });
     } catch (error) {
