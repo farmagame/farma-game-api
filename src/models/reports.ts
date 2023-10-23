@@ -7,6 +7,5 @@ export interface ReportsGamePlayer {
     city: string,
     state: string,
     typeGame: string,
-    rightQuestions: Question[],
-    wrongQuestions: Question[],
+    questionsGame: Question[],
 }

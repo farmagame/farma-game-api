@@ -8,24 +8,39 @@ const prisma = new PrismaClient();
 
 //Envio das informações do jogo
 router.post('/reports', async (req, res) => {
-    const { idUser, age, sex, city, state, typeGame }: ReportsGamePlayer = req.body;
-    try {
-      const newReports = await prisma.reports.create({
+  const { idUser, age, sex, city, state, typeGame, questionsGame } = req.body;
+
+  try {
+    // Primeiro, crie o relatório sem associar perguntas
+    const newReport = await prisma.reports.create({
+      data: {
+        idUser,
+        age,
+        sex,
+        city,
+        state,
+        typeGame,
+      },
+    });
+
+    // Em seguida, associe as perguntas ao relatório
+    if (questionsGame && questionsGame.length > 0) {
+      await prisma.reports.update({
+        where: { id: newReport.id },
         data: {
-          age,
-          city,
-          state,
-          typeGame,
-          sex,
-          idUser
-        }
+          questions: {
+            connect: questionsGame.map((questionId:string) => ({ id: questionId })),
+          },
+        },
       });
-      res.json(newReports);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: 'Erro ao criar categoria' });
     }
-  });
+
+    res.json(newReport);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Erro ao criar relatório' });
+  }
+});
 
 
 router.get('/reports/:idUser', async (req, res) => {
