@@ -93,28 +93,6 @@ router.get('/reports', async (req, res) => {
   }
 });
 
-//Listagem de todos os usuários que jogaram o jogo
-router.get('/list-gamers', async (req, res) => {
-  try {
-    const uniqueUserIds = await prisma.reports.findMany({
-      select: {
-        idUser: true,
-      },
-      distinct: ['idUser'],
-    });
-
-    if (uniqueUserIds) {
-      const userIds = uniqueUserIds.map((item) => item.idUser);
-      res.json(userIds);
-    } else {
-      res.status(404).json({ error: 'Nenhum jogador encontrado' });
-    }
-  } catch (error:any) {
-    console.error(error);
-    res.status(500).json({ error: 'Erro ao obter os idUser', details: error.message });
-  }
-});
-
 //Busca os relatórios por usuário do jogo
 router.get('/reports/:idUser', async (req, res) => {
   const reportUserId = req.params.idUser.toString();

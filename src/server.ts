@@ -3,6 +3,7 @@ import bodyParser from 'body-parser';
 import userRoutes from './routes/Users/userRoutes';
 import categoryRoutes from './routes/Categories/categoryRoutes';
 import questionRoutes from './routes/Questions/questionRoutes';
+import reportsRouter from './routes/Reports/reportsRouter';
 
 
 const port = 3000 || process.env.PORT
@@ -23,4 +24,5 @@ app.listen(port, () => {
 
 app.use(categoryRoutes);
 app.use(questionRoutes);
+app.use(reportsRouter);
 app.use(userRoutes);
