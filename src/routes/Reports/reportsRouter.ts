@@ -1,6 +1,5 @@
 import express, { Request, Response } from 'express';
 import { PrismaClient } from '@prisma/client';
-import { ReportsGamePlayer } from '../../models/reports';
 
 
 const router = express.Router();
@@ -8,10 +7,9 @@ const prisma = new PrismaClient();
 
 //Envio das informações do jogo
 router.post('/reports', async (req, res) => {
-  const { idUser, age, sex, city, state, typeGame, questionsGame } = req.body;
+  const { idUser, age, sex, city, state, typeGame, answerRight, answerWrong } = req.body;
 
   try {
-    // Primeiro, crie o relatório sem associar perguntas
     const newReport = await prisma.reports.create({
       data: {
         idUser,
@@ -23,42 +21,125 @@ router.post('/reports', async (req, res) => {
       },
     });
 
-    // Em seguida, associe as perguntas ao relatório
-    if (questionsGame && questionsGame.length > 0) {
+    if (answerRight && answerRight.length > 0) {
       await prisma.reports.update({
         where: { id: newReport.id },
         data: {
-          questions: {
-            connect: questionsGame.map((questionId:string) => ({ id: questionId })),
+          answeredRight: {
+            connect: answerRight.map((questionId:string) => ({ id: questionId })),
+          },
+        },
+      });
+    }
+    
+    if (answerWrong && answerWrong.length > 0) {
+      await prisma.reports.update({
+        where: { id: newReport.id },
+        data: {
+          answeredWrong: {
+            connect: answerRight.map((questionId:string) => ({ id: questionId })),
           },
         },
       });
     }
 
     res.json(newReport);
-  } catch (error) {
+  } catch (error:any) {
     console.error(error);
     res.status(500).json({ error: 'Erro ao criar relatório' });
   }
 });
 
+//Busca todos os relatórios
+router.get('/reports', async (req, res) => {
+  const page = Number(req.query.page) || 1;
+  const itemsPerPage = Number(req.query.itemsPerPage) || 10;
+  
+  if (isNaN(page) || isNaN(itemsPerPage) || page <= 0 || itemsPerPage <= 0) {
+    return res.status(400).json({ error: 'Parâmetros de consulta inválidos.' });
+  }
 
-router.get('/reports/:idUser', async (req, res) => {
-  const reportId = req.params.idUser.toString();
   try {
     const reports = await prisma.reports.findMany({
-      where: {
-        id: reportId,
+      skip: (page - 1) * itemsPerPage,
+      take: itemsPerPage, 
+      orderBy: { createdAt: 'desc' },
+      include: {
+        answeredRight: { include: { options: true } },
+        answeredWrong: { include: { options: true } },
       },
     });
+
+    const totalReports = await prisma.reports.count();
+    const totalPages = Math.ceil(totalReports / itemsPerPage);
+
     if (reports) {
-      res.json(reports);
+      res.json({
+        data: reports,
+        pageInfo: {
+          page,
+          itemsPerPage,
+          totalPages,
+          totalItems: totalReports,
+        },
+      });
     } else {
-      res.status(404).json({ error: 'Relatório não encontrada' });
+      res.status(404).json({ error: 'Relatório não encontrado' });
     }
-  } catch (error) {
+  } catch (error:any) {
     console.error(error);
-    res.status(500).json({ error: 'Erro ao obter relatório' });
+
+    res.status(500).json({ error: 'Erro ao obter relatório', details: error.message });
+  }
+});
+
+//Busca os relatórios por usuário do jogo
+router.get('/reports/:idUser', async (req, res) => {
+  const reportUserId = req.params.idUser.toString();
+  const page = Number(req.query.page) || 1;
+  const itemsPerPage = Number(req.query.itemsPerPage) || 10;
+
+  if (isNaN(page) || isNaN(itemsPerPage) || page <= 0 || itemsPerPage <= 0) {
+    return res.status(400).json({ error: 'Parâmetros de consulta inválidos.' });
+  }
+
+  try {
+    const reportData = await prisma.reports.findMany({
+      where: {
+        idUser: reportUserId,
+      },
+      skip: (page - 1) * itemsPerPage,
+      take: itemsPerPage,
+      include: {
+        answeredRight: { include: { options: true } },
+        answeredWrong: { include: { options: true } },
+      },
+    });
+
+    const totalReports = await prisma.reports.count({
+      where: {
+        idUser: reportUserId,
+      },
+    });
+
+    const totalPages = Math.ceil(totalReports / itemsPerPage);
+
+    if (reportData) {
+      res.json({
+        data: reportData,
+        pageInfo: {
+          page,
+          itemsPerPage,
+          totalPages,
+          totalItems: totalReports,
+        },
+      });
+    } else {
+      res.status(404).json({ error: 'Relatório não encontrado' });
+    }
+  } catch (error:any) {
+    console.error(error);
+    res.status(500).json({ error: 'Erro ao obter relatório', details: error.message });
   }
 });
 

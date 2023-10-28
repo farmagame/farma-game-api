@@ -25,14 +25,11 @@ model Reports {
   city     String
   state    String
   typeGame String
-  questions Question[]
+  answeredRight Question[] @relation("ReportsAnsweredRight")
+  answeredWrong Question[] @relation("ReportsAnsweredWrong")
+  createdAt DateTime   @default(now())
 }
 
-model Category {
-  id             String       @id @default(uuid())
-  category String     @unique
-  question Question[]
-}
 
 model Question {
   id         String     @id @default(uuid())
@@ -43,9 +40,16 @@ model Question {
   categoryId String
   userId     String
   options    Options[]
-  reports    Reports[]
+  answeredRightReports Reports[] @relation("ReportsAnsweredRight")
+  answeredWrongReports Reports[] @relation("ReportsAnsweredWrong")
   category   Category  @relation(fields: [categoryId], references: [id])
   user       User      @relation(fields: [userId], references: [id])
+}
+
+model Category {
+  id             String       @id @default(uuid())
+  category String     @unique
+  question Question[]
 }
 
 model Options {
