@@ -21,23 +21,26 @@ router.post('/reports', async (req, res) => {
       },
     });
 
-    if (answerRight && answerRight.length > 0) {
+    const answerRightObj = JSON.parse(answerRight);
+    const answerWrongObj = JSON.parse(answerWrong);
+
+    if (answerRightObj && answerRightObj.questions.length > 0) {
       await prisma.reports.update({
         where: { id: newReport.id },
         data: {
           answeredRight: {
-            connect: answerRight.map((questionId:string) => ({ id: questionId })),
+            connect: answerRightObj.questions.map((questionId:string) => ({ id: questionId })),
           },
         },
       });
     }
     
-    if (answerWrong && answerWrong.length > 0) {
+    if (answerWrongObj && answerWrongObj.questions.length > 0) {
       await prisma.reports.update({
         where: { id: newReport.id },
         data: {
           answeredWrong: {
-            connect: answerRight.map((questionId:string) => ({ id: questionId })),
+            connect: answerRight.questions.map((questionId:string) => ({ id: questionId })),
           },
         },
       });
