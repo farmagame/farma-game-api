@@ -29,7 +29,7 @@ router.post('/reports', async (req, res) => {
         where: { id: newReport.id },
         data: {
           answeredRight: {
-            connect: answerRightObj.questions.map((questionId:string) => ({ id: questionId })),
+            connect: answerRightObj.questions.map((question:any) => ({ id: question.id })),
           },
         },
       });
@@ -40,14 +40,14 @@ router.post('/reports', async (req, res) => {
         where: { id: newReport.id },
         data: {
           answeredWrong: {
-            connect: answerRight.questions.map((questionId:string) => ({ id: questionId })),
+            connect: answerWrongObj.questions.map((question:any) => ({ id: question.id })),
           },
         },
       });
     }
 
     res.json(newReport);
-  } catch (error:any) {
+  } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Erro ao criar relatório' });
   }
