@@ -4,6 +4,8 @@ import userRoutes from './routes/Users/userRoutes';
 import categoryRoutes from './routes/Categories/categoryRoutes';
 import questionRoutes from './routes/Questions/questionRoutes';
 import reportsRouter from './routes/Reports/reportsRouter';
+import cors from 'cors';
+
 
 
 const port = 3000 || process.env.PORT
@@ -11,6 +13,9 @@ const port = 3000 || process.env.PORT
 const app = express();
 
 app.use(bodyParser.json());
+
+app.use(cors());
+
 
 // Rota Inicial
 app.get('/', (req, res) => {
@@ -26,3 +31,4 @@ app.use(categoryRoutes);
 app.use(questionRoutes);
 app.use(reportsRouter);
 app.use(userRoutes);
+
