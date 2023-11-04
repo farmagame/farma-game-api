@@ -1,6 +1,6 @@
 import express, { Request, Response } from 'express';
 import { PrismaClient } from '@prisma/client';
-import { Question } from '../../models/question';
+import { Option, Question } from '../../models/question';
 
 
 const router = express.Router();
@@ -83,41 +83,44 @@ router.get('/questions', async (req, res) => {
 
 // rota para criar questões
 router.post('/questions', async (req, res) => {
-  const { ask, options, hint, status, answer, id, question_category, messageError, messageSuccess }:Question = req.body;
+  const { ask, options, hint, status, answer, categoryId, userId, messageQuestionWrong, messageQuestionSuccess } = req.body;
   try {
     const newQuestion = await prisma.question.create({
       data: {
         ask,       
-            options:{
-              createMany: {
-                data: options.map((option: any) => ({
-                  label: option.label,
-                  check: option.check,
-                })),
-            }
-          },
-                
+        options: {
+          createMany: {
+            data: options.map((option: Option) => ({
+              label: option.label,
+              check: option.check,
+            })),
+          }
+        },
         hint,         
         status, 
         answer,         
+        categoryId,
+        userId,
+        messageQuestionWrong,
+        messageQuestionSuccess,
         category: {
-          connect: { category: question_category }
+          connect: { id: categoryId }
         },
         user: {
-          connect: { id }
+          connect: { id: userId }
         }
       },
       include: {
-        options: true, // Isso permite que as opções recém-criadas sejam retornadas na resposta
+        options: true, 
       },
-    })
-    ;
+    });
     res.json(newQuestion);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Erro ao criar questão' });
   }
 });
+
 
 // Rota para editar questões
 router.put('/questions/:id', async (req, res) => {
@@ -144,7 +147,7 @@ router.put('/questions/:id', async (req, res) => {
         userId 
       },
       include: {
-        options: true, // Isso permite que as opções recém-criadas sejam retornadas na resposta
+        options: true,
       },
     });
     res.json(updatedQuestion);

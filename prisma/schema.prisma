@@ -39,6 +39,8 @@ model Question {
   answer     String
   categoryId String
   userId     String
+  messageQuestionWrong String
+  messageQuestionSuccess String
   options    Options[]
   answeredRightReports Reports[] @relation("ReportsAnsweredRight")
   answeredWrongReports Reports[] @relation("ReportsAnsweredWrong")
