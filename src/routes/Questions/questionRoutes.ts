@@ -98,9 +98,7 @@ router.post('/questions', async (req, res) => {
         },
         hint,         
         status, 
-        answer,         
-        categoryId,
-        userId,
+        answer,
         messageQuestionWrong,
         messageQuestionSuccess,
         category: {
