@@ -73,7 +73,13 @@ router.get('/questions/user/:id', async (req, res) => {
 // Rota para listar questões
 router.get('/questions', async (req, res) => {
   try {
-    const questions = await prisma.question.findMany();
+    const questions = await prisma.question.findMany({
+      include: {
+        options: true,
+        category: true,
+        user: true,
+      },
+    });
     res.json(questions);
   } catch (error) {
     console.error(error);
