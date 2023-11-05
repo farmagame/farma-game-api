@@ -89,7 +89,13 @@ router.post('/login', async (req: Request, res: Response) => {
     
     res.json({ 
       message: 'Usuário logado com suscesso', 
-      token  
+      token,
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        permissions: user.permissions,
+      },
     });
   //comentário só pra testar
   } catch (error) {
