@@ -129,9 +129,9 @@ router.post('/questions', async (req, res) => {
       },
     });
     res.json(newQuestion);
-  } catch (error) {
+  } catch (error:any) {
     console.error(error);
-    res.status(500).json({ error: 'Erro ao criar questão' });
+    res.status(500).json({ error: 'Erro ao criar questão', message: error.message });
   }
 });
 
@@ -159,9 +159,9 @@ router.put('/questions/:id', async (req, res) => {
     });
 
     res.json(updatedQuestion);
-  } catch (error) {
+  } catch (error:any) {
     console.error(error);
-    res.status(500).json({ error: 'Erro ao atualizar a Questão' });
+    res.status(500).json({ error: 'Erro ao atualizar a Questão', message: error.message });
   }
 });
 
