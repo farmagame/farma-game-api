@@ -128,7 +128,7 @@ router.post('/questions', async (req, res) => {
 
 // Rota para editar questões
 router.put('/questions/:id', async (req, res) => {
-  const  newid  = req.params.id;
+  const newid  = req.params.id;
   const { ask, options, hint, status, answer, categoryId, userId } = req.body;
 
   try {
@@ -136,19 +136,24 @@ router.put('/questions/:id', async (req, res) => {
       where: { id: newid },
       data: {
         ask,       
-            options:{
-              createMany: {
-                data: options.map((option: any) => ({
-                  label: option.label,
-                  check: option.check,
-                })),
-            }
-          },      
+        options: {
+          updateMany: {
+            where: { questionId: newid },
+            data: options.map((option: any) => ({
+              label: option.label,
+              check: option.check,
+            })),
+          }
+        },      
         hint,         
         status,       
         answer,  
-        categoryId,
-        userId 
+        category: {
+          connect: { id: categoryId }
+        },
+        user: {
+          connect: { id: userId }
+        }
       },
       include: {
         options: true,
@@ -161,12 +166,13 @@ router.put('/questions/:id', async (req, res) => {
   }
 });
 
+
 // Rota para apagar questão
 router.delete('/questions/:id', async (req, res) => {
-  const { id } = req.params;
+  const newid  = req.params.id;
   try {
     await prisma.question.delete({
-      where: { id: id },
+      where: { id: newid },
     });
     res.json({ message: 'Questão deletada com suscesso' });
   } catch (error) {
