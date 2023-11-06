@@ -131,23 +131,15 @@ router.post('/questions', async (req, res) => {
 
 // Rota para editar questões
 router.put('/questions/:id', async (req, res) => {
-  const newid  = req.params.id;
+  const  newid  = req.params.id;
   const { ask, options, hint, status, answer, categoryId, userId } = req.body;
 
   try {
+    // Primeiro, atualize a questão
     const updatedQuestion = await prisma.question.update({
       where: { id: newid },
       data: {
-        ask,       
-        options: {
-          updateMany: {
-            where: { questionId: newid },
-            data: options.map((option: any) => ({
-              label: option.label,
-              check: option.check,
-            })),
-          }
-        },      
+        ask,      
         hint,         
         status,       
         answer,  
@@ -162,12 +154,24 @@ router.put('/questions/:id', async (req, res) => {
         options: true,
       },
     });
+
+    for (let option of options) {
+      await prisma.options.update({
+        where: { id: option.id },
+        data: {
+          label: option.label,
+          check: option.check,
+        },
+      });
+    }
+
     res.json(updatedQuestion);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Erro ao atualizar a Questão' });
   }
 });
+
 
 
 // Rota para apagar questão
