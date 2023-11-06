@@ -30,13 +30,12 @@ router.get('/questions/:id', async (req, res) => {
   }
 });
 
-
-// Rota para obter questões por categoria 
+// Rota para obter questões por categoria
 router.get('/questions/category/:category', async (req, res) => {
   const category = req.params.category;
   try {
     const questions = await prisma.question.findMany({
-      where: { 
+      where: {
         category: {
           category,
         },
@@ -60,14 +59,12 @@ router.get('/questions/category/:category', async (req, res) => {
   }
 });
 
-
-
-// Rota para obter questões por usuário 
+// Rota para obter questões por usuário
 router.get('/questions/user/:id', async (req, res) => {
   const userId = req.params.id;
   try {
     const questions = await prisma.question.findMany({
-      where: { 
+      where: {
         userId: userId,
       },
       include: {
@@ -88,7 +85,6 @@ router.get('/questions/user/:id', async (req, res) => {
     res.status(500).json({ error: 'Erro ao obter questões' });
   }
 });
-
 
 // Rota para listar questões
 router.get('/questions', async (req, res) => {
@@ -113,6 +109,7 @@ router.get('/questions', async (req, res) => {
   }
 });
 
+
 // rota para criar questões
 router.post('/questions', async (req, res) => {
   const { ask, options, hint, status, answer, categoryId, userId, messageQuestionWrong, messageQuestionSuccess } = req.body;
@@ -129,12 +126,8 @@ router.post('/questions', async (req, res) => {
         answer,
         messageQuestionWrong,
         messageQuestionSuccess,
-        category: {
-          connect: { id: categoryId }
-        },
-        user: {
-          connect: { id: userId }
-        }
+        categoryId,
+        userId
       },
     });
     res.json(newQuestion);
@@ -143,6 +136,7 @@ router.post('/questions', async (req, res) => {
     res.status(500).json({ error: 'Erro ao criar questão' });
   }
 });
+
 
 
 // Rota para editar questões
@@ -161,12 +155,8 @@ router.put('/questions/:id', async (req, res) => {
         answer,
         messageQuestionWrong,
         messageQuestionSuccess,
-        category: {
-          connect: { id: categoryId }
-        },
-        user: {
-          connect: { id: userId }
-        }
+        categoryId,
+        userId
       },
     });
 
@@ -176,6 +166,7 @@ router.put('/questions/:id', async (req, res) => {
     res.status(500).json({ error: 'Erro ao atualizar a Questão' });
   }
 });
+
 
 
 // Rota para apagar questão
