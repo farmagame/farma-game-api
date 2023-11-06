@@ -41,7 +41,7 @@ model Question {
   userId     String
   messageQuestionWrong String @db.Text
   messageQuestionSuccess String @db.Text
-  options    Options[]
+  options    String @db.Text
   answeredRightReports Reports[] @relation("ReportsAnsweredRight")
   answeredWrongReports Reports[] @relation("ReportsAnsweredWrong")
   category   Category  @relation(fields: [categoryId], references: [id])
@@ -54,13 +54,13 @@ model Category {
   question Question[]
 }
 
-model Options {
-  id         String   @id @default(uuid())
-  label      String
-  check      Boolean  @default(true)
-  questionId String
-  Question   Question @relation(fields: [questionId], references: [id])
-}
+// model Options {
+//   id         String   @id @default(uuid())
+//   label      String
+//   check      Boolean  @default(true)
+//   questionId String
+//   Question   Question @relation(fields: [questionId], references: [id])
+// }
 
 enum Role {
   ADMIN

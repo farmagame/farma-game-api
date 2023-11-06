@@ -67,10 +67,6 @@ router.get('/reports', async (req, res) => {
       skip: (page - 1) * itemsPerPage,
       take: itemsPerPage, 
       orderBy: { createdAt: 'desc' },
-      include: {
-        answeredRight: { include: { options: true } },
-        answeredWrong: { include: { options: true } },
-      },
     });
 
     const totalReports = await prisma.reports.count();
@@ -113,10 +109,6 @@ router.get('/reports/:idUser', async (req, res) => {
       },
       skip: (page - 1) * itemsPerPage,
       take: itemsPerPage,
-      include: {
-        answeredRight: { include: { options: true } },
-        answeredWrong: { include: { options: true } },
-      },
     });
 
     const totalReports = await prisma.reports.count({
@@ -145,6 +137,100 @@ router.get('/reports/:idUser', async (req, res) => {
     res.status(500).json({ error: 'Erro ao obter relatório', details: error.message });
   }
 });
+
+//Busca os relatórios por estado
+router.get('/reports/:state', async (req, res) => {
+  const state = req.params.state;
+  const page = Number(req.query.page) || 1;
+  const itemsPerPage = Number(req.query.itemsPerPage) || 10;
+
+  if (isNaN(page) || isNaN(itemsPerPage) || page <= 0 || itemsPerPage <= 0) {
+    return res.status(400).json({ error: 'Parâmetros de consulta inválidos.' });
+  }
+
+  try {
+    const reportData = await prisma.reports.findMany({
+      where: {
+        state: state,
+      },
+      skip: (page - 1) * itemsPerPage,
+      take: itemsPerPage,
+    });
+
+    const totalReports = await prisma.reports.count({
+      where: {
+        state: state,
+      },
+    });
+
+    const totalPages = Math.ceil(totalReports / itemsPerPage);
+
+    if (reportData) {
+      res.json({
+        data: reportData,
+        pageInfo: {
+          page,
+          itemsPerPage,
+          totalPages,
+          totalItems: totalReports,
+        },
+      });
+    } else {
+      res.status(404).json({ error: 'Relatório não encontrado' });
+    }
+  } catch (error:any) {
+    console.error(error);
+    res.status(500).json({ error: 'Erro ao obter relatório', details: error.message });
+  }
+
+});
+
+router.get('/reports/:city', async (req, res) => {
+  const city = req.params.city; 
+  const page = Number(req.query.page) || 1;
+  const itemsPerPage = Number(req.query.itemsPerPage) || 10;
+
+  if (isNaN(page) || isNaN(itemsPerPage) || page <= 0 || itemsPerPage <= 0) {
+    return res.status(400).json({ error: 'Parâmetros de consulta inválidos.' });
+  }
+
+  try {
+    const reportData = await prisma.reports.findMany({
+      where: {
+        city: city,
+      },
+      skip: (page - 1) * itemsPerPage,
+      take: itemsPerPage,
+    });
+
+    const totalReports = await prisma.reports.count({
+      where: {
+        city: city,
+      },
+    });
+
+    const totalPages = Math.ceil(totalReports / itemsPerPage);
+
+    if (reportData) {
+      res.json({
+        data: reportData,
+        pageInfo: {
+          page,
+          itemsPerPage,
+          totalPages,
+          totalItems: totalReports,
+        },
+      });
+    } else {
+      res.status(404).json({ error: 'Relatório não encontrado' });
+    }
+  } catch (error:any) {
+    console.error(error);
+    res.status(500).json({ error: 'Erro ao obter relatório', details: error.message });
+  }
+
+});
+
 
 
 export default router;

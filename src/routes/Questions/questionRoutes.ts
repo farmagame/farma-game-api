@@ -75,17 +75,20 @@ router.get('/questions', async (req, res) => {
   try {
     const questions = await prisma.question.findMany({
       include: {
-        options: true,
         category: true,
         user: true,
       },
     });
-    res.json(questions);
+    res.json(questions.map(question => ({
+      ...question,
+      options: question.options.split(', '),
+    })));
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Erro ao listar questões' });
   }
 });
+
 
 // rota para criar questões
 router.post('/questions', async (req, res) => {
@@ -97,14 +100,7 @@ router.post('/questions', async (req, res) => {
     const newQuestion = await prisma.question.create({
       data: {
         ask,       
-        options: {
-          createMany: {
-            data: options.map((option: Option) => ({
-              label: option.label,
-              check: option.check,
-            })),
-          }
-        },
+        options: options.join(', '),
         hint,         
         status, 
         answer,
@@ -117,9 +113,6 @@ router.post('/questions', async (req, res) => {
           connect: { id: userId }
         }
       },
-      include: {
-        options: true, 
-      },
     });
     res.json(newQuestion);
   } catch (error) {
@@ -129,20 +122,23 @@ router.post('/questions', async (req, res) => {
 });
 
 
+
 // Rota para editar questões
 router.put('/questions/:id', async (req, res) => {
-  const  newid  = req.params.id;
-  const { ask, options, hint, status, answer, categoryId, userId } = req.body;
+  const newid = req.params.id;
+  const { ask, options, hint, status, answer, categoryId, userId, messageQuestionWrong, messageQuestionSuccess } = req.body;
 
   try {
-    // Primeiro, atualize a questão
     const updatedQuestion = await prisma.question.update({
       where: { id: newid },
       data: {
-        ask,      
-        hint,         
-        status,       
-        answer,  
+        ask,
+        options: options.join(', '),
+        hint,
+        status,
+        answer,
+        messageQuestionWrong,
+        messageQuestionSuccess,
         category: {
           connect: { id: categoryId }
         },
@@ -150,20 +146,7 @@ router.put('/questions/:id', async (req, res) => {
           connect: { id: userId }
         }
       },
-      include: {
-        options: true,
-      },
     });
-
-    for (let option of options) {
-      await prisma.options.update({
-        where: { id: option.id },
-        data: {
-          label: option.label,
-          check: option.check,
-        },
-      });
-    }
 
     res.json(updatedQuestion);
   } catch (error) {
@@ -174,14 +157,11 @@ router.put('/questions/:id', async (req, res) => {
 
 
 
+
 // Rota para apagar questão
 router.delete('/questions/:id', async (req, res) => {
   const { id } = req.params;
   try {
-    await prisma.options.deleteMany({
-      where: { questionId: id },
-    });
-
     await prisma.question.delete({
       where: { id: id },
     });
