@@ -11,36 +11,48 @@ router.get('/questions/:id', async (req, res) => {
   const questionId = req.params.id;
   try {
     const question = await prisma.question.findUnique({
-      where: {
-        id: questionId,
+      where: { id: questionId },
+      include: {
+        category: true,
+        user: true,
       },
     });
-    if (question) {
-      res.json(question);
-    } else {
-      res.status(404).json({ error: 'Questão não encontrada' });
+    if (!question) {
+      return res.status(404).json({ error: 'Questão não encontrada' });
     }
+    res.json({
+      ...question,
+      options: JSON.parse(question.options), // Converte a string JSON em um array de objetos
+    });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Erro ao obter questão' });
+    res.status(500).json({ error: 'Erro ao obter a Questão' });
   }
 });
+
 
 // Rota para obter questões por categoria 
 router.get('/questions/category/:category', async (req, res) => {
   const newcategoryQuestion = req.params.category;
   try {
-    const question = await prisma.question.findMany({
+    const questions = await prisma.question.findMany({
       where: { 
         category: {
           category: newcategoryQuestion,
         },
       },
+      include: {
+        category: true,
+        user: true,
+      },
     });
-    if (question) {
-      res.json(question);
+    if (questions.length > 0) {
+      res.json(questions.map(question => ({
+        ...question,
+        options: JSON.parse(question.options),
+      })));
     } else {
-      res.status(404).json({ error: 'Questões não encontrada' });
+      res.status(404).json({ error: 'Questões não encontradas' });
     }
   } catch (error) {
     console.error(error);
@@ -48,27 +60,34 @@ router.get('/questions/category/:category', async (req, res) => {
   }
 });
 
+
 // Rota para obter questões por usuário 
 router.get('/questions/user/:id', async (req, res) => {
-  const newuserQuestion = req.params.id;
+  const userId = req.params.id;
   try {
-    const question = await prisma.question.findMany({
+    const questions = await prisma.question.findMany({
       where: { 
-        user: {
-          id: newuserQuestion,
-        },
+        userId: userId,
+      },
+      include: {
+        category: true,
+        user: true,
       },
     });
-    if (question) {
-      res.json(question);
+    if (questions.length > 0) {
+      res.json(questions.map(question => ({
+        ...question,
+        options: JSON.parse(question.options),
+      })));
     } else {
-      res.status(404).json({ error: 'Questões não encontrada' });
+      res.status(404).json({ error: 'Questões não encontradas' });
     }
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Erro ao obter questões' });
   }
 });
+
 
 // Rota para listar questões
 router.get('/questions', async (req, res) => {
@@ -81,13 +100,14 @@ router.get('/questions', async (req, res) => {
     });
     res.json(questions.map(question => ({
       ...question,
-      options: question.options.split(', '),
+      options: JSON.parse(question.options), // Converte a string JSON em um array de objetos
     })));
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Erro ao listar questões' });
   }
 });
+
 
 
 // rota para criar questões
@@ -128,15 +148,15 @@ router.post('/questions', async (req, res) => {
 
 // Rota para editar questões
 router.put('/questions/:id', async (req, res) => {
-  const newid = req.params.id;
+  const questionId = req.params.id;
   const { ask, options, hint, status, answer, categoryId, userId, messageQuestionWrong, messageQuestionSuccess } = req.body;
 
   try {
     const updatedQuestion = await prisma.question.update({
-      where: { id: newid },
+      where: { id: questionId },
       data: {
         ask,
-        options: options.join(', '),
+        options: JSON.stringify(options), // Converte o array de objetos em uma string JSON
         hint,
         status,
         answer,
@@ -157,6 +177,7 @@ router.put('/questions/:id', async (req, res) => {
     res.status(500).json({ error: 'Erro ao atualizar a Questão' });
   }
 });
+
 
 
 
