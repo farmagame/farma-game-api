@@ -22,7 +22,6 @@ router.get('/questions/:id', async (req, res) => {
     const { options, ...rest } = question;
     res.json({
       ...rest,
-      options: JSON.parse(options),
     });
   } catch (error) {
     console.error(error);
@@ -48,7 +47,6 @@ router.get('/questions/category/:category', async (req, res) => {
     if (questions.length > 0) {
       res.json(questions.map(question => ({
         ...question,
-        options: JSON.parse(question.options),
       })));
     } else {
       res.status(404).json({ error: 'Questões não encontradas' });
@@ -75,7 +73,7 @@ router.get('/questions/user/:id', async (req, res) => {
     if (questions.length > 0) {
       res.json(questions.map(question => ({
         ...question,
-        options: JSON.parse(question.options),
+
       })));
     } else {
       res.status(404).json({ error: 'Questões não encontradas' });
@@ -98,7 +96,7 @@ router.get('/questions', async (req, res) => {
     if (questions.length > 0) {
       res.json(questions.map(question => ({
         ...question,
-        options: JSON.parse(question.options),
+
       })));
     } else {
       res.status(404).json({ error: 'Questões não encontradas' });
