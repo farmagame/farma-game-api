@@ -31,15 +31,14 @@ router.get('/questions/:id', async (req, res) => {
 });
 
 
-
 // Rota para obter questões por categoria 
 router.get('/questions/category/:category', async (req, res) => {
-  const newcategoryQuestion = req.params.category;
+  const category = req.params.category;
   try {
     const questions = await prisma.question.findMany({
       where: { 
         category: {
-          category: newcategoryQuestion,
+          category,
         },
       },
       include: {
@@ -60,6 +59,7 @@ router.get('/questions/category/:category', async (req, res) => {
     res.status(500).json({ error: 'Erro ao obter questões' });
   }
 });
+
 
 
 // Rota para obter questões por usuário 
@@ -99,17 +99,19 @@ router.get('/questions', async (req, res) => {
         user: true,
       },
     });
-    res.json(questions.map(question => ({
-      ...question,
-      options: JSON.parse(question.options), // Converte a string JSON em um array de objetos
-    })));
+    if (questions.length > 0) {
+      res.json(questions.map(question => ({
+        ...question,
+        options: JSON.parse(question.options),
+      })));
+    } else {
+      res.status(404).json({ error: 'Questões não encontradas' });
+    }
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Erro ao listar questões' });
   }
 });
-
-
 
 // rota para criar questões
 router.post('/questions', async (req, res) => {
@@ -118,13 +120,12 @@ router.post('/questions', async (req, res) => {
     return res.status(400).json({ error: 'usuário não fornecido' });
   }
   try {
-    const optionsString = JSON.stringify(options);
     const newQuestion = await prisma.question.create({
       data: {
-        ask,       
-        options: optionsString,
-        hint,         
-        status, 
+        ask,
+        options: JSON.stringify(options),
+        hint,
+        status,
         answer,
         messageQuestionWrong,
         messageQuestionSuccess,
@@ -142,9 +143,6 @@ router.post('/questions', async (req, res) => {
     res.status(500).json({ error: 'Erro ao criar questão' });
   }
 });
-
-
-
 
 
 // Rota para editar questões
@@ -178,9 +176,6 @@ router.put('/questions/:id', async (req, res) => {
     res.status(500).json({ error: 'Erro ao atualizar a Questão' });
   }
 });
-
-
-
 
 
 // Rota para apagar questão

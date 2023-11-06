@@ -41,7 +41,7 @@ model Question {
   userId     String
   messageQuestionWrong String @db.Text
   messageQuestionSuccess String @db.Text
-  options    String @db.Text
+  options    Json
   answeredRightReports Reports[] @relation("ReportsAnsweredRight")
   answeredWrongReports Reports[] @relation("ReportsAnsweredWrong")
   category   Category  @relation(fields: [categoryId], references: [id])
