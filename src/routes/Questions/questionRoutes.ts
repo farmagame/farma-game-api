@@ -90,6 +90,9 @@ router.get('/questions', async (req, res) => {
 // rota para criar questões
 router.post('/questions', async (req, res) => {
   const { ask, options, hint, status, answer, categoryId, userId, messageQuestionWrong, messageQuestionSuccess } = req.body;
+  if (!userId) {
+    return res.status(400).json({ error: 'usuário não fornecido' });
+  }
   try {
     const newQuestion = await prisma.question.create({
       data: {
