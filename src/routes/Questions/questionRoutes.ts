@@ -169,16 +169,22 @@ router.put('/questions/:id', async (req, res) => {
 
 // Rota para apagar questão
 router.delete('/questions/:id', async (req, res) => {
-  const newid  = req.params.id;
+  const { id } = req.params;
   try {
-    await prisma.question.delete({
-      where: { id: newid },
+    await prisma.options.deleteMany({
+      where: { questionId: id },
     });
+
+    await prisma.question.delete({
+      where: { id: id },
+    });
+
     res.json({ message: 'Questão deletada com suscesso' });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Erro ao deletar questão' });
   }
 });
+
 
 export default router;
