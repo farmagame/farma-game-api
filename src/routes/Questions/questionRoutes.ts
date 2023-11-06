@@ -1,6 +1,5 @@
 import express, { Request, Response } from 'express';
 import { PrismaClient } from '@prisma/client';
-import { Option, Question } from '../../models/question';
 
 
 const router = express.Router();
@@ -20,15 +19,17 @@ router.get('/questions/:id', async (req, res) => {
     if (!question) {
       return res.status(404).json({ error: 'Questão não encontrada' });
     }
+    const { options, ...rest } = question;
     res.json({
-      ...question,
-      options: JSON.parse(question.options), // Converte a string JSON em um array de objetos
+      ...rest,
+      options: JSON.parse(options),
     });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Erro ao obter a Questão' });
   }
 });
+
 
 
 // Rota para obter questões por categoria 
