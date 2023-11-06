@@ -97,10 +97,11 @@ router.post('/questions', async (req, res) => {
     return res.status(400).json({ error: 'usuário não fornecido' });
   }
   try {
+    const optionsString = JSON.stringify(options);
     const newQuestion = await prisma.question.create({
       data: {
         ask,       
-        options: options.join(', '),
+        options: optionsString,
         hint,         
         status, 
         answer,
@@ -120,6 +121,8 @@ router.post('/questions', async (req, res) => {
     res.status(500).json({ error: 'Erro ao criar questão' });
   }
 });
+
+
 
 
 
