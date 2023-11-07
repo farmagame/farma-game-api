@@ -93,7 +93,7 @@ router.get('/reports', async (req, res) => {
 });
 
 //Busca os relatórios por usuário do jogo
-router.get('/reports/:idUser', async (req, res) => {
+router.get('/reports/user/:idUser', async (req, res) => {
   const reportUserId = req.params.idUser.toString();
   const page = Number(req.query.page) || 1;
   const itemsPerPage = Number(req.query.itemsPerPage) || 10;
@@ -139,7 +139,7 @@ router.get('/reports/:idUser', async (req, res) => {
 });
 
 //Busca os relatórios por estado
-router.get('/reports/:state', async (req, res) => {
+router.get('/reports/state/:state', async (req, res) => {
   const state = req.params.state;
   const page = Number(req.query.page) || 1;
   const itemsPerPage = Number(req.query.itemsPerPage) || 10;
@@ -185,7 +185,7 @@ router.get('/reports/:state', async (req, res) => {
 
 });
 
-router.get('/reports/:city', async (req, res) => {
+router.get('/reports/city/:city', async (req, res) => {
   const city = req.params.city; 
   const page = Number(req.query.page) || 1;
   const itemsPerPage = Number(req.query.itemsPerPage) || 10;
